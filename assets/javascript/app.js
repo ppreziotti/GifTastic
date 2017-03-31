@@ -24,6 +24,7 @@ function createButtons() {
 // MAIN PROCESS 
 // ===================================================================================
 
+// Run the createButtons function right away
 createButtons();
 
 // When a user clicks a topic button a max of 10 results are pulled using Giphy API
@@ -31,8 +32,9 @@ $(document.body).on("click", ".topic-btn", function() {
 	$("#image-display").empty();
 	var character = $(this).attr("data-value")
 	console.log(character);
+	// Searches based on the character, limits results to 10 with a rating of pg or lower
 	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + character + 
-		"&limit=10" + "&api_key=dc6zaTOxFJmzC";
+		"&limit=10" + "&rating=pg" + "&api_key=dc6zaTOxFJmzC";
 	$.ajax({
 		url: queryURL,
 		method: "GET"

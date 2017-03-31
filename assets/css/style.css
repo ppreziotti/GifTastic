@@ -1,0 +1,21 @@
+body {
+	background-image: url('../images/stardust.png');
+}
+
+button, #add-topic {
+	background-color: #00DBE8;
+	font-weight: bold;
+	color: white;
+}
+
+.jumbotron {
+	background-image: url('../images/simpsons-logo.jpg');
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+form {
+	position: absolute;
+	bottom: 20px;
+}
