@@ -2,17 +2,6 @@ body {
 	background-image: url('../images/stardust.png');
 }
 
-button, #add-character {
-	background-color: #00DBE8;
-	font-weight: bold;
-	color: black;
-}
-
-button {
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
 .jumbotron {
 	background-image: url('../images/simpsons-logo.jpg');
 	background-size: cover;
@@ -20,6 +9,7 @@ button {
 	position: relative;
 	height: 470px;
 	color: black;
+	text-align: center;
 }
 
 form {
@@ -27,16 +17,30 @@ form {
 	bottom: 20px;
 }
 
-p {
-	color: white;
+#add-character, button {
+	background-color: #00DBE8;
+	font-weight: bold;
+	color: black;
+}
+
+#button-display {
+	margin-bottom: 20px;
+}
+
+button {
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 .gif {
 	display: inline-block;
-	float-left;
 	margin-right: 20px;
-	max-width: 30%;
-	margin-top: 0;
+	max-width: 20%;
+	margin-bottom: 20px;
+}
+
+p {
+	color: white;
 }
 
 .gif-image {

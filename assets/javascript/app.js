@@ -1,5 +1,7 @@
 // GLOBAL VARIABLES
 // ===================================================================================
+
+// Array for storing Simpsons characters
 var characters = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", 
 	"Maggie Simpson", "Ned Flanders", "Maude Flanders", "Chief Wiggum", "Mr. Burns", 
 	"Lionel Hutz", "Moe Szyslak", "Milhouse Van Houten", "Waylon Smithers", 
@@ -8,9 +10,10 @@ var characters = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpso
 
 // FUNCTIONS
 // ===================================================================================
-// Create buttons for each topic in the array and displays them on the page
-// Clears the button display first so buttons are not duplicated when a new topic
-// is added
+
+// Create buttons for each character in the array and then displays them on the page
+// Clears the button display div first so buttons are not duplicated when a new character
+// is added to the array
 function createButtons() {
 	$("#button-display").empty();
 	for (var i = 0; i < characters.length; i++) {
@@ -21,10 +24,13 @@ function createButtons() {
 	}
 }
 
+// Adds a new character from user input to the Characters array and then executes createButtons
+// The user input text is cleared after the buttons are created
 function addButton() {
 	var newCharacter = $("#character-input").val().trim();
 	characters.push(newCharacter);
 	createButtons();
+	$("#character-input").val("");
 }
 
 // The image dispay is emptied and then displays gifs results based on the button pressed
@@ -42,7 +48,7 @@ function displayGifs() {
 		console.log(response);
 		// Once the ajax call is complete each gif, along with its rating, is shown
 		// on the page in a gifDiv...img sources are defined for both still and active
-		// states, with the default appearance being still
+		// states, with the default state as still
 		for (var i = 0; i < response.data.length; i++) {
 			var gifDiv = $("<div>");
 			gifDiv.addClass("gif");
@@ -65,7 +71,7 @@ function displayGifs() {
 	});
 }
 
-// The state of a gif changes from still to active or vice versa
+// Changes the state of a gif image from still to active or vice versa
 function changeState() {
 	var state = $(this).attr("data-state");
 	if (state === "still") {
@@ -81,18 +87,21 @@ function changeState() {
 // MAIN PROCESS 
 // ===================================================================================
 
-// Run the createButtons function right away
-createButtons();
+$(document).ready(function() {
+	// Executes the createButtons function right away once the page is loaded
+	createButtons();
 
-// When a user clicks a topic button the displayGifs function is executed
-$(document.body).on("click", ".character-btn", displayGifs);
+	// When the user clicks a character button the displayGifs function is executed
+	$(document.body).on("click", ".character-btn", displayGifs);
 
-// When a gif image is clicked by the user the changeState function is executed
-$(document.body).on("click", ".gif-image", changeState);
+	// When the user clicks a gif image the changeState function is executed
+	$(document.body).on("click", ".gif-image", changeState);
 
-// When the user hits the add topic button their input value is added to the topics array
-// and the createButtons function is executed again without reloading the page
-$("#add-character").on("click", function() {
-	event.preventDefault();
-	addButton();
+	// When the user clicks the add character button the addButton function is executed 
+	// without reloading the page
+	$("#add-character").on("click", function() {
+		event.preventDefault();
+		addButton();
+	});
+
 });
