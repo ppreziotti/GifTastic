@@ -1,10 +1,10 @@
 // GLOBAL VARIABLES
 // ===================================================================================
-var topics = ["homer simpson", "marge simpson", "bart simpson", "lisa simpson", 
-	"maggie simpson", "ned flanders", "maude flanders", "chief wiggum", "mr. burns", 
-	"lionel hutz", "moe szyslak", "milhouse van houten", "waylon smithers", 
-	"barney gumble", "kent brockman", "dr. hibbert", "edna krabappel", "principal skinner",
-	"krusty the klown", "dr. nick"];
+var topics = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", 
+	"Maggie Simpson", "Ned Flanders", "Maude Flanders", "Chief Wiggum", "Mr. Burns", 
+	"Lionel Hutz", "Moe Szyslak", "Milhouse Van Houten", "Waylon Smithers", 
+	"Barney Gumble", "Kent Brockman", "Dr. Hibbert", "Edna Krabappel", "Principal Skinner",
+	"Krusty the Klown", "Dr. Nick"];
 
 // FUNCTIONS
 // ===================================================================================
@@ -27,7 +27,8 @@ function createButtons() {
 // Run the createButtons function right away
 createButtons();
 
-// When a user clicks a topic button a max of 10 results are pulled using Giphy API
+// When a user clicks a topic button the image dispay is emptied and the data value of the 
+// button is pulled in order to be used in the API call
 $(document.body).on("click", ".topic-btn", function() {
 	$("#image-display").empty();
 	var character = $(this).attr("data-value")
@@ -41,8 +42,8 @@ $(document.body).on("click", ".topic-btn", function() {
 	}).done(function(response) {
 		console.log(response);
 		// Once the ajax call is complete each gif, along with its rating, is shown
-		// on the page in a gifDiv...img sources are defined for both still (default)
-		// and active state
+		// on the page in a gifDiv...img sources are defined for both still and active
+		// states, with the default appearance being still
 		for (var i = 0; i < response.data.length; i++) {
 			var gifDiv = $("<div>");
 			gifDiv.addClass("gif");
@@ -79,11 +80,12 @@ $(document.body).on("click", ".gif-image", function() {
 	}
 });
 
-// When the user hits the add topic button a new button based on their input is
-// created and appended to the button display area, without reloading the page
+// When the user hits the add topic button their input value is added to the topics array
+// and the createButtons function is run again without reloading the page
 $("#add-topic").on("click", function() {
 	event.preventDefault();
 	var newTopic = $("#topic").val().trim();
 	topics.push(newTopic);
 	createButtons();
+	$("#topic").text().empty();
 });
