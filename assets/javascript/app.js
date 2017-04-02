@@ -1,6 +1,6 @@
 // GLOBAL VARIABLES
 // ===================================================================================
-var topics = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", 
+var characters = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", 
 	"Maggie Simpson", "Ned Flanders", "Maude Flanders", "Chief Wiggum", "Mr. Burns", 
 	"Lionel Hutz", "Moe Szyslak", "Milhouse Van Houten", "Waylon Smithers", 
 	"Barney Gumble", "Kent Brockman", "Dr. Hibbert", "Edna Krabappel", "Principal Skinner",
@@ -13,28 +13,27 @@ var topics = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson",
 // is added
 function createButtons() {
 	$("#button-display").empty();
-	for (var i = 0; i < topics.length; i++) {
-		var topicButton = $("<button>").text(topics[i]);
-		topicButton.attr("data-value", topics[i]);
-		topicButton.addClass("topic-btn");
-		$("#button-display").append(topicButton);
+	for (var i = 0; i < characters.length; i++) {
+		var characterButton = $("<button>").text(characters[i]);
+		characterButton.attr("data-value", characters[i]);
+		characterButton.addClass("character-btn");
+		$("#button-display").append(characterButton);
 	}
 }
 
-// MAIN PROCESS 
-// ===================================================================================
+function addButton() {
+	var newCharacter = $("#character-input").val().trim();
+	characters.push(newCharacter);
+	createButtons();
+}
 
-// Run the createButtons function right away
-createButtons();
-
-// When a user clicks a topic button the image dispay is emptied and the data value of the 
-// button is pulled in order to be used in the API call
-$(document.body).on("click", ".topic-btn", function() {
+// The image dispay is emptied and then displays gifs results based on the button pressed
+function displayGifs() {
 	$("#image-display").empty();
-	var character = $(this).attr("data-value")
-	console.log(character);
+	var chosenCharacter = $(this).attr("data-value")
+	console.log(chosenCharacter);
 	// Searches based on the character, limits results to 10 with a rating of pg or lower
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + character + 
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + chosenCharacter + 
 		"&limit=10" + "&rating=pg" + "&api_key=dc6zaTOxFJmzC";
 	$.ajax({
 		url: queryURL,
@@ -64,11 +63,10 @@ $(document.body).on("click", ".topic-btn", function() {
 			$("#image-display").append(gifDiv);
 		}
 	});
-});
+}
 
-// When a gif image is clicked by the user, the state changes from still to active
-// or vice versa
-$(document.body).on("click", ".gif-image", function() {
+// The state of a gif changes from still to active or vice versa
+function changeState() {
 	var state = $(this).attr("data-state");
 	if (state === "still") {
 		$(this).attr("src", $(this).attr("data-active"));
@@ -78,14 +76,23 @@ $(document.body).on("click", ".gif-image", function() {
 		$(this).attr("src", $(this).attr("data-still"));
 		$(this).attr("data-state", "still");
 	}
-});
+}
+
+// MAIN PROCESS 
+// ===================================================================================
+
+// Run the createButtons function right away
+createButtons();
+
+// When a user clicks a topic button the displayGifs function is executed
+$(document.body).on("click", ".character-btn", displayGifs);
+
+// When a gif image is clicked by the user the changeState function is executed
+$(document.body).on("click", ".gif-image", changeState);
 
 // When the user hits the add topic button their input value is added to the topics array
-// and the createButtons function is run again without reloading the page
-$("#add-topic").on("click", function() {
+// and the createButtons function is executed again without reloading the page
+$("#add-character").on("click", function() {
 	event.preventDefault();
-	var newTopic = $("#topic").val().trim();
-	topics.push(newTopic);
-	createButtons();
-	$("#topic").text().empty();
+	addButton();
 });

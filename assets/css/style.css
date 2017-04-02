@@ -2,7 +2,7 @@ body {
 	background-image: url('../images/stardust.png');
 }
 
-button, #add-topic {
+button, #add-character {
 	background-color: #00DBE8;
 	font-weight: bold;
 	color: black;
@@ -36,6 +36,7 @@ p {
 	float-left;
 	margin-right: 20px;
 	max-width: 30%;
+	margin-top: 0;
 }
 
 .gif-image {
