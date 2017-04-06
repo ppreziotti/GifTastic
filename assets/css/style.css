@@ -46,3 +46,7 @@ p {
 .gif-image {
 	max-width: 100%;
 }
+
+.gif-image:hover {
+	cursor: pointer;
+}
