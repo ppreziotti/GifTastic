@@ -39,7 +39,7 @@ function displayGifs() {
 	var chosenCharacter = $(this).attr("data-value")
 	console.log(chosenCharacter);
 	// Searches based on the character, limits results to 10 with a rating of pg or lower
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + chosenCharacter + 
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + chosenCharacter + 
 		"&limit=10" + "&rating=pg" + "&api_key=dc6zaTOxFJmzC";
 	$.ajax({
 		url: queryURL,
